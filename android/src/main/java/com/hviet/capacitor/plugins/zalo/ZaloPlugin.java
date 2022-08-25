@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
 
@@ -36,16 +35,12 @@ public class ZaloPlugin {
         if (hashKey != null) {
             return hashKey;
         }
-        PackageInfo info = null;
         try {
-            info = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), PackageManager.GET_SIGNATURES);
+            PackageInfo info = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
-                MessageDigest md;
-                md = MessageDigest.getInstance("SHA");
+                MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                String sig  = new String(android.util.Base64.encode(md.digest(), 0)).trim();
-                //String something = new String(Base64.encodeBytes(md.digest()));
-                Log.e("hash key", sig);
+                String sig = Base64.encodeToString(md.digest(), Base64.DEFAULT).trim();
                 if (sig.trim().length() > 0) {
                     hashKey = sig;
                     return sig;
@@ -60,20 +55,6 @@ public class ZaloPlugin {
     }
     
     public String genCodeVerifier() {
-//        SecureRandom sr = new SecureRandom();
-//        byte[] code = new byte[32];
-//        sr.nextBytes(code);
-//        String verifier = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-//            verifier = Base64.getUrlEncoder().withoutPadding().encodeToString(code);
-//        } else {
-////            RandomString gen = new RandomString(43, ThreadLocalRandom.current());
-////            verifier = gen.nextString();
-//            verifier = android.util.Base64.encodeToString(code, 0);
-//        }
-////        RandomString gen = new RandomString(43, ThreadLocalRandom.current());
-////        return gen.nextString();
-//        return verifier;
         SecureRandom sr = new SecureRandom();
         byte[] code = new byte[32];
         sr.nextBytes(code);
@@ -89,11 +70,6 @@ public class ZaloPlugin {
             md.update(bytes, 0, bytes.length);
             byte[] digest = md.digest();
             result = Base64.encodeToString(digest, Base64.URL_SAFE | Base64.NO_WRAP | Base64.NO_PADDING);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                result = Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
-//            } else {
-//                result = android.util.Base64.encodeToString(digest, 0);
-//            }
         } catch (Exception ex) {
             Log.e(ex.getMessage(), ex.toString());
         }
@@ -120,21 +96,6 @@ public class ZaloPlugin {
                 state
         );
         return getRequest(url);
-//        try {
-//            Process process = Runtime.getRuntime().exec(command);
-//            BufferedReader reader = new BufferedReader(new
-//                    InputStreamReader(process.getInputStream()));
-//            String line;
-//            String response = "";
-//            while ((line = reader.readLine()) != null) {
-//                response += line;
-//            }
-//            return response;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-
     }
 
     public static String getRequest(String url) {

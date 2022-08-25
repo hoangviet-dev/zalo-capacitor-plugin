@@ -109,7 +109,7 @@ public class MyApplication extends Application {
 		ZaloSDKApplication.wrap(this);
 	}
 }
-````
+```
 
 ###  &bull;  IOS
 IS COMING

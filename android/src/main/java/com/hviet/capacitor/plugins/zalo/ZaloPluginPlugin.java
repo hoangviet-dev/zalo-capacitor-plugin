@@ -98,14 +98,6 @@ public class ZaloPluginPlugin extends Plugin {
         };
 
         implementation.genCodeChallenge();
-//        JSONObject extInfo = new JSONObject();
-//        String res = implementation.Authorization(
-//                ZaloSDK.Instance.getAppID(),
-//                getContext().getPackageName(),
-//                implementation.getApplicationHashKey(getContext()),
-//                implementation.getCodeChallenge(),
-//                "vietnam");
-        String res = "";
         if (implementation.getCodeChallenge() != null) {
 //            Log.d("Authorization", res);
             ZaloSDK.Instance.authenticateZaloWithAuthenType(this.getActivity(), LoginVia.APP_OR_WEB, implementation.getCodeChallenge(), listener);
