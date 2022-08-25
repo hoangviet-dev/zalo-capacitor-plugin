@@ -90,6 +90,7 @@ public class ZaloPluginPlugin extends Plugin {
                                     ret.put("oauthCode", code);
                                     call.resolve(ret);
                                 } else {
+                                    ret.put("success", false);
                                     ret.put("error", new ErrorType("ERROR_001", "Authenticate failed. Progress dismissed"));
                                     call.resolve(ret);
                                 }

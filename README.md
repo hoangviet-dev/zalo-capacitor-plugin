@@ -137,15 +137,20 @@ const MyApp = () => {
 		//Đăng nhập với Zalo
 		ZaloPlugin.login()
 		.then((res: LoginResponse) => {
-			//Sau khi đăng nhập thành công thì lấy dữ liệu người dùng
-			ZaloPlugin.getProfile()
-			.then((data: UserProfile) => {
-				console.log('ID:  ', data.id);
-				console.log('NAME:  ', data.name);
-				console.log('GENDER:  ', data.gender);
-				console.log('BIRTHDAY:  ', data.birthday);
-				console.log('PICTURE: ', data?.picture);
-			});
+			if (res.success) {
+				//Sau khi đăng nhập thành công thì lấy dữ liệu người dùng
+				ZaloPlugin.getProfile()
+				.then((data: UserProfile) => {
+					console.log('ID:  ', data.id);
+					console.log('NAME:  ', data.name);
+					console.log('GENDER:  ', data.gender);
+					console.log('BIRTHDAY:  ', data.birthday);
+					console.log('PICTURE: ', data?.picture);
+				});
+			}  else {
+				//không thể đăng nhập
+				console.log('lỗi: ', res.error);
+			}
 		});
 }
 
