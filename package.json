@@ -1,7 +1,7 @@
 {
   "name": "zalo-capacitor-plugin",
   "version": "0.0.1",
-  "description": "zalo auth of capacitor plugin",
+  "description": "zalo auth for capacitor plugin",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
