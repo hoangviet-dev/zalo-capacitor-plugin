@@ -27,15 +27,6 @@ public class ZaloPluginPlugin extends Plugin {
     private ZaloPlugin implementation = new ZaloPlugin();
 
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
-    }
-
-    @PluginMethod
     public void getProfile(PluginCall call) {
         JSObject ret = new JSObject();
         ZaloOpenAPICallback listener = new ZaloOpenAPICallback() {

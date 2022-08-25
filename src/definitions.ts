@@ -31,7 +31,6 @@ export interface HashKeyAndroid extends Errorable {
 }
 
 export interface ZaloPluginPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
   getProfile(): Promise<UserProfile>;
   login(): Promise<LoginResponse>;
   logout(): Promise<void>;

@@ -65,12 +65,7 @@ public class ZaloPlugin {
         }
         return "";
     }
-
-    public String echo(String value) {
-        Log.i("Echo", value);
-        return value;
-    }
-
+    
     public String genCodeVerifier() {
         SecureRandom sr = new SecureRandom();
         byte[] code = new byte[32];
