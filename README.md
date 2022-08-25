@@ -14,7 +14,7 @@ Theo [ https://developers.zalo.me/docs/sdk]( https://developers.zalo.me/docs/sdk
 ### &bull; Android 
 Vào trang web http://developers.zalo.me tạo ứng dụng cho android và điền thông tin theo yêu cầu.
 **Lưu ý:**
-* Chạy lệnh `ZaloPlugin.getHashKeyAndroid()` trong ứng dụng ionic của bạn để lấy hash key cho thiết bị android
+* Chạy lệnh `ZaloPlugin.getHashKeyAndroid()` trong ứng dụng capcitor của bạn để lấy hash key cho thiết bị android
 
 ```typescript
 ZaloPlugin.getHashKeyAndroid()
