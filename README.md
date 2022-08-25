@@ -146,7 +146,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 **Chú ý**
 * Thay **ZALO_APP_ID** được lấy từ http://developers.zalo.me
 
-##### 3. Thêm URL Types để Zalo app gọi lại
+##### 3. Trong `ios/App/App/Info.plist`
+
+```xml
+...
+ 	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>zalosdk</string>
+	</array>
+...
+```
+**Chú ý**
+* Thay **ZALO_APP_ID** được lấy từ http://developers.zalo.me
+
+##### 4. Thêm URL Types để Zalo app gọi lại
 Vào target setting -> info -> URK types -> click + để thêm URL Types với:
 * Identifier: `zalo`
 * URL Schemes: `zalo-ZALO_APP_ID` (Thay **ZALO_APP_ID** được lấy từ http://developers.zalo.me )
@@ -316,6 +329,7 @@ addListener(eventName: 'onEvent', listenerFunc: (result: any) => void) => Promis
 
 | phiên bản | mô tả |
 |---|---|
+|0.0.8| sửa một số lỗi trên ios|
 |0.0.6| bổ sung cho ios|
 |0.0.4| sửa một số lỗi trên android|
 |0.0.3| bổ sung cho android|
