@@ -55,7 +55,8 @@ Trong đó {SECRET_KEY} là khoá bí mật lấy từ trang *http://developers.
 		  android:value="@string/zaloAppId" />
 		  
 	<activity
-		android:name="com.zing.zalo.zalosdk.oauth.BrowserLoginActivity">
+		android:name="com.zing.zalo.zalosdk.oauth.BrowserLoginActivity"
+		android:exported="true">
 		<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<category android:name="android.intent.category.DEFAULT" />
