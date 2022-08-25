@@ -110,7 +110,7 @@ public class MyApplication extends Application {
 ````
 
 ###  &bull;  IOS
-
+IS COMING
 ## API
 <docgen-index>
 
