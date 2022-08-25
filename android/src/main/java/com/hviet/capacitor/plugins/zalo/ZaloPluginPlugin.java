@@ -1,10 +1,6 @@
 package com.hviet.capacitor.plugins.zalo;
 
-import android.os.Build;
-import android.util.Base64;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
@@ -103,14 +99,15 @@ public class ZaloPluginPlugin extends Plugin {
 
         implementation.genCodeChallenge();
 //        JSONObject extInfo = new JSONObject();
-        String res = implementation.Authorization(
-                ZaloSDK.Instance.getAppID(),
-                getContext().getPackageName(),
-                implementation.getApplicationHashKey(getContext()),
-                implementation.getCodeChallenge(),
-                "vietnam");
-        if (res != null && implementation.getCodeChallenge() != null) {
-            Log.d("Authorization", res);
+//        String res = implementation.Authorization(
+//                ZaloSDK.Instance.getAppID(),
+//                getContext().getPackageName(),
+//                implementation.getApplicationHashKey(getContext()),
+//                implementation.getCodeChallenge(),
+//                "vietnam");
+        String res = "";
+        if (implementation.getCodeChallenge() != null) {
+//            Log.d("Authorization", res);
             ZaloSDK.Instance.authenticateZaloWithAuthenType(this.getActivity(), LoginVia.APP_OR_WEB, implementation.getCodeChallenge(), listener);
         }
 

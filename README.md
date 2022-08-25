@@ -1,6 +1,6 @@
 # zalo-capacitor-plugin
 
-Plugin đăng nhập zalo cho capacitor
+Plugin đăng nhập và lấy thông tin người dùng zalo cho capacitor
 
 ## Install
 
@@ -152,6 +152,10 @@ const MyApp = () => {
 				console.log('lỗi: ', res.error);
 			}
 		});
+
+		//Đăng xuất Zalo
+		ZaloPlugin.logout();
+	}, []);
 }
 
 ```
@@ -267,3 +271,10 @@ addListener(eventName: 'onEvent', listenerFunc: (result: any) => void) => Promis
 | **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
 
 </docgen-api>
+
+## VERSION
+
+| phiên bản | mô tả |
+|---|---|
+|0.0.4| sửa một số lỗi trên android|
+|0.0.3| bổ sung cho android|
