@@ -15,7 +15,7 @@ Theo [ https://developers.zalo.me/docs/sdk]( https://developers.zalo.me/docs/sdk
 Vào trang web http://developers.zalo.me tạo ứng dụng cho android và điền thông tin theo yêu cầu.
 
 **Lưu ý:**
-* Chạy lệnh `ZaloPlugin.getHashKeyAndroid()` trong ứng dụng capcitor của bạn để lấy hash key cho thiết bị android
+* Chạy lệnh `ZaloPlugin.getHashKeyAndroid()` trong ứng dụng typescript của bạn để lấy hash key (Base64 của SHA1) cho thiết bị android
 
 ```typescript
 ZaloPlugin.getHashKeyAndroid()
@@ -37,7 +37,7 @@ implementation "me.zalo:sdk-openapi:+"
 <string name="zaloLoginProtocolScheme">zalo-{APP_ID}</string>
 ```
 Trong đó {APP_ID} được lấy từ trang *http://developers.zalo.me* 
-##### 3. Thêm codeVerifier trong file  `android/variables.gradle`
+##### 3. Thêm secretKey trong file  `android/variables.gradle`
 ```java
 ext {
 	secretKey = {SECRET_KEY}
@@ -113,6 +113,44 @@ public class MyApplication extends Application {
 
 ###  &bull;  IOS
 IS COMING
+
+## Sử dụng dịch vụ Zalo trong ứng dụng của bạn
+
+```typescript
+import { UserProfile, ZaloPlugin } from 'zalo-capacitor-plugin';
+
+const MyApp = () => {
+	useEffect(() => {
+
+		//Lắng nghe sự kiện
+		ZaloPlugin.addListener("onEvent", (result) => {
+			console.log(result);
+		});
+
+		//Lấy hash key của ứng dụng android
+		ZaloPlugin.getHashKeyAndroid().then(
+			(res: HashKeyAndroid) => {
+				console.log(res.hashKey);
+			}
+		);
+
+		//Đăng nhập với Zalo
+		ZaloPlugin.login()
+		.then((res: LoginResponse) => {
+			//Sau khi đăng nhập thành công thì lấy dữ liệu người dùng
+			ZaloPlugin.getProfile()
+			.then((data: UserProfile) => {
+				console.log('ID:  ', data.id);
+				console.log('NAME:  ', data.name);
+				console.log('GENDER:  ', data.gender);
+				console.log('BIRTHDAY:  ', data.birthday);
+				console.log('PICTURE: ', data?.picture);
+			});
+		});
+}
+
+```
+
 ## API
 <docgen-index>
 
