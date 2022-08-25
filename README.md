@@ -33,18 +33,12 @@ implementation "me.zalo:sdk-openapi:+"
 
 ##### 2.  Cấu hình trong file `android/app/src/main/res/values/strings.xml`
 ```xml
-<string name="zaloAppId">{APP_ID}</string>
-<string name="zaloLoginProtocolScheme">zalo-{APP_ID}</string>
+<string name="zaloAppId">APP_ID</string>
+<string name="zaloLoginProtocolScheme">zalo-APP_ID</string>
 ```
-Trong đó {APP_ID} được lấy từ trang *http://developers.zalo.me* 
-##### 3. Thêm secretKey trong file  `android/variables.gradle`
-```java
-ext {
-	secretKey = {SECRET_KEY}
-}
-```
-Trong đó {SECRET_KEY} là khoá bí mật lấy từ trang *http://developers.zalo.me* 
-##### 4. Cấu hình trong `android/app/src/main/AndroidManifest.xml`
+Trong đó **APP_ID** được lấy từ trang *http://developers.zalo.me* 
+
+##### 3. Cấu hình trong `android/app/src/main/AndroidManifest.xml`
 ```xml
 <application android:name="com.zing.zalo.zalosdk.oauth.ZaloSDKApplication" 
 	...
@@ -72,7 +66,7 @@ Trong đó {SECRET_KEY} là khoá bí mật lấy từ trang *http://developers.
 </queries>
 ```
 **Lưu ý:** 
-* AppID cần được thêm vào `strings.xml` theo hướng dẫn ở trên, không gán trực tiếp chuỗi appID trong thẻ metaData sẽ gây ra lỗi ZaloSDK không nhận dạng được appID.
+* **AppID** cần được thêm vào `strings.xml` theo hướng dẫn ở trên, không gán trực tiếp chuỗi appID trong thẻ metaData sẽ gây ra lỗi ZaloSDK không nhận dạng được appID.
 
 **Chú thích**
 * Đối với Android 11 (API >= 30) cần thêm thông tin sau cho phép mở ứng dụng Zalo:
@@ -83,7 +77,7 @@ Trong đó {SECRET_KEY} là khoá bí mật lấy từ trang *http://developers.
 ```
 * Đối với Android 12 (API >= 31) thêm `android:exported="true"` cho việc gọi lại ứng dụng khi đăng nhập bằng trình duyệt.
 
-##### 5. Trong file `android/app/src/main/java/..../MainActivity.java`
+##### 4. Trong file `android/app/src/main/java/..../MainActivity.java`
 ```java
 import com.zing.zalo.zalosdk.oauth.ZaloSDK;
 
@@ -96,7 +90,7 @@ public class MainActivity extends BridgeActivity {
  }
 ```
 
-##### 6. Tạo file `MyApplication.java` cùng thư mục với 	`MainActivity.java` và có nội dung như sau:
+##### 5. Tạo file `MyApplication.java` cùng thư mục với 	`MainActivity.java` và có nội dung như sau:
 ```java
 
 import android.app.Application;
@@ -112,7 +106,53 @@ public class MyApplication extends Application {
 ```
 
 ###  &bull;  IOS
-IS COMING
+Vào trang web http://developers.zalo.me tạo ứng dụng cho ios và điền thông tin theo yêu cầu.
+##### 1. Trong `ios/App/Podfile` thêm:
+```
+target 'App' do
+	capacitor_pods
+	# Add your Pods here
+	...
+	pod 'ZaloSDK'
+	...
+end
+```
+
+##### 2. Trong file `ios/App/App/AppDelegate.swift`
+
+```swift
+import UIKit
+import ZaloSDK
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+	var window: UIWindow?
+
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+	...
+		/// 0a. Init zalo sdk
+		ZaloSDK.sharedInstance().initialize(withAppId: "ZALO_APP_ID")
+		return true
+	}
+
+	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+		/// 0b. Receive callback from zalo
+		return ZDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+	}
+	...
+}
+```
+
+**Chú ý**
+* Thay **ZALO_APP_ID** được lấy từ http://developers.zalo.me
+
+##### 3. Thêm URL Types để Zalo app gọi lại
+Vào target setting -> info -> URK types -> click + để thêm URL Types với:
+* Identifier: `zalo`
+* URL Schemes: `zalo-ZALO_APP_ID` (Thay **ZALO_APP_ID** được lấy từ http://developers.zalo.me )
+
+<img src="./images/url_type.png" />
+
 
 ## Sử dụng dịch vụ Zalo trong ứng dụng của bạn
 
