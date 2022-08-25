@@ -9,7 +9,7 @@ npm install zalo-capacitor-plugin
 npx cap sync
 ```
 
-##Configuration 
+## Configuration 
 Theo [ https://developers.zalo.me/docs/sdk]( https://developers.zalo.me/docs/sdk " https://developers.zalo.me/docs/sdk")
 ### &bull; Android 
 Vào trang web http://developers.zalo.me tạo ứng dụng cho android và điền thông tin theo yêu cầu.
