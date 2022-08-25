@@ -81,7 +81,7 @@ Trong đó {SECRET_KEY} là khoá bí mật lấy từ trang *http://developers.
 ```
 * Đối với Android 12 (API >= 31) thêm `android:exported="true"` cho việc gọi lại ứng dụng khi đăng nhập bằng trình duyệt.
 
-#####4. Trong file `android/app/src/main/java/..../MainActivity.java`
+##### 5. Trong file `android/app/src/main/java/..../MainActivity.java`
 ```java
 import com.zing.zalo.zalosdk.oauth.ZaloSDK;
 
@@ -94,7 +94,7 @@ public class MainActivity extends BridgeActivity {
  }
 ```
 
-#####5. Tạo file `MyApplication.java` cùng thư mục với 	`MainActivity.java` và có nội dung như sau:
+##### 6. Tạo file `MyApplication.java` cùng thư mục với 	`MainActivity.java` và có nội dung như sau:
 ```java
 
 import android.app.Application;
