@@ -1,4 +1,4 @@
-import Foundation
+mport Foundation
 import Capacitor
 import ZaloSDK
 
@@ -23,22 +23,22 @@ public class ZaloPluginPlugin: CAPPlugin {
         })
     }
 
-    @objc public login(_ call: CAPPluginCall) {
-        implementation.codeVerifier = generateCodeVerifier() ?? ""
-        implementation.codeChallenge = generateCodeChallenge(codeVerifier: codeVerifier)
+    @objc public func login(_ call: CAPPluginCall) {
+        self.implementation.codeVerifier = generateCodeVerifier() ?? ""
+        self.implementation.codeChallenge = generateCodeChallenge(codeVerifier: self.implementation.codeVerifier) ?? ""
         DispatchQueue.main.async {
-            ZaloSDK.sharedInstance().authenticateZalo(with: type, parentController: presentedViewController, codeChallenge: codeChallenege, extInfo: nil, handler: {(response) in
+            ZaloSDK.sharedInstance().authenticateZalo(with: ZAZAloSDKAuthenTypeViaZaloAppAndWebView, parentController: self.bridge?.viewController, codeChallenge: self.implementation.codeChallenge, extInfo: nil, handler: {(response) in
 
                 if response?.isSucess == true {
-                    implementation.oauthCode =  response?.oauthCode ?? ""
-                    self.getAccessToken(oauthCode: oauthCode, codeVerifier: codeVerifier, completion: {(tokenResponse) in
+                    self.implementation.oauthCode =  response?.oauthCode ?? ""
+                    self.getAccessToken(oauthCode: self.implementation.oauthCode, codeVerifier: self.implementation.codeVerifier, completion: {(tokenResponse) in
                         if (tokenResponse?.isSucess == true) {
-                            implementation.accessToken = tokenResponse?.accessToken ?? ""
-                            implementation.refreshToken = tokenResponse?.refreshToken ?? ""
+                            self.implementation.accessToken = tokenResponse?.accessToken ?? ""
+                            self.implementation.refreshToken = tokenResponse?.refreshToken ?? ""
                             
                             call.resolve([
                                 "success": true,
-                                "oauthCode": implementation.oauthCode
+                                "oauthCode": self.implementation.oauthCode
                             ])
                         } else {
                             call.resolve([
@@ -64,11 +64,19 @@ public class ZaloPluginPlugin: CAPPlugin {
         }
     }
 
-    @objc public getProfile(_ call: CAPPluginCall) {
+    @objc func getProfile(_ call: CAPPluginCall) {
         DispatchQueue.main.async {
-            ZaloSDK.sharedInstance().getZaloUserProfile(withAccessToken: tokenData.accessToken, callback: {(response) in
+            ZaloSDK.sharedInstance().getZaloUserProfile(withAccessToken: self.implementation.accessToken, callback: {(response) in
                 if response!.errorCode == ZaloSDKErrorCode.sdkErrorCodeNoneError.rawValue {
-                    call.resolve(response!.data)
+                    call.resolve(
+                        [
+                            "id": response?.data["id"],
+                            "name": response?.data["name"],
+                            "gender": response?.data["gender"],
+                            "birthday": response?.data["birthday"],
+                            "picture": response?.data["picture"],
+                        ]
+                    )
                 } else {
                     call.resolve([
                         "success": false,
@@ -82,8 +90,8 @@ public class ZaloPluginPlugin: CAPPlugin {
         }
     }
 
-    @objc public logout(_ call: CAPPluginCall) {
+    @objc func logout(_ call: CAPPluginCall) {
         ZaloSDK.sharedInstance().unauthenticate()
-        call.resolve(["success", true])
+        call.resolve(["success": true])
     }
 }

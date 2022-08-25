@@ -1,6 +1,6 @@
 {
   "name": "zalo-capacitor-plugin",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "zalo auth for capacitor plugin",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -17,10 +17,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hoangviet-dev/zalo-capacitor-plugin.git.git"
+    "url": "git+https://github.com/hoangviet-dev/zalo-capacitor-plugin.git"
   },
   "bugs": {
-    "url": "https://github.com/hoangviet-dev/zalo-capacitor-plugin.git/issues"
+    "url": "https://github.com/hoangviet-dev/zalo-capacitor-plugin/issues"
   },
   "keywords": [
     "capacitor",
