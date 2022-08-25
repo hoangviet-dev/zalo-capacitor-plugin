@@ -38,7 +38,7 @@ implementation "me.zalo:sdk-openapi:+"
 ```
 Trong đó {APP_ID} được lấy từ trang *http://developers.zalo.me* 
 ##### 3. Thêm codeVerifier trong file  `android/variables.gradle`
-```json
+```java
 ext {
 	secretKey = {SECRET_KEY}
 }
