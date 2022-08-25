@@ -316,5 +316,6 @@ addListener(eventName: 'onEvent', listenerFunc: (result: any) => void) => Promis
 
 | phiên bản | mô tả |
 |---|---|
+|0.0.5| bổ sung cho ios|
 |0.0.4| sửa một số lỗi trên android|
 |0.0.3| bổ sung cho android|
